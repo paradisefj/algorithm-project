@@ -2,6 +2,7 @@ package edu.class1;
 
 public class LinkedArray<T> {
 	private Node<T> head = null;
+	private int size = 0;
 	
 	public Node<T> getHead() {
 		return head;
@@ -24,6 +25,8 @@ public class LinkedArray<T> {
 		node.setpNext(this.head.getpNext());
 		node.setValue(value);
 		this.head.setpNext(node);
+		
+		size++;
 	}
 	
 	/**
@@ -34,15 +37,57 @@ public class LinkedArray<T> {
 		addNode.setValue(value);
 		addNode.setpNext(node.getpNext());
 		node.setpNext(addNode);
+		
+		size++;
 	}
 	
-	public void pint(){
-		Node<T> tmp = head.getpNext();
-		while(tmp != null){
-			System.out.print(tmp.getValue());
-			tmp = tmp.getpNext();
+	/**
+	 * 在链表的m到n的位置翻转链表，元素的位置从0开始
+	 * 0<=m<=n<=链表长度 - 1
+	 * @param m
+	 * @param n
+	 */
+	public void reverse(int m, int n){
+		if(m == n)
+			return;
+		//首先找到第m个节点的位置
+		Node<T> pCur = this.head.getpNext();
+		Node<T> pHead = this.head;
+		int i =0;
+		while(i<m){
+			pHead = pCur;
+			pCur = pCur.getpNext();
+			i++;
 		}
-		System.out.println();
+		Node<T> pPre = pCur;
+		pCur = pCur.getpNext();
+		Node<T> pNext = pCur.getpNext();
+		//将newHead指向的链表看做一个新的链表，使用头插法将后面的节点插入
+		while(i<n){
+			pNext = pCur.getpNext();
+			pCur.setpNext(pHead.getpNext());
+			pPre.setpNext(pNext);
+			pHead.setpNext(pCur);
+			
+			pCur = pNext;
+			
+			i++;
+		}
+		
+	}
+	
+	@Override
+	public String toString(){
+		StringBuffer sb = new StringBuffer();
+		Node<T> node = this.head.getpNext();
+		while(node != null){
+			if(node.getpNext() != null)
+				sb.append(node.getValue() + "->");
+			else
+				sb.append(node.getValue() + "\n");
+			node = node.getpNext();
+		}
+		return sb.toString();
 	}
 	
 }

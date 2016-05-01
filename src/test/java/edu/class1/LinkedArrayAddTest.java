@@ -20,6 +20,6 @@ public class LinkedArrayAddTest {
 	@Test
 	public void testAdd(){
 		myList.add();
-		myList.print();
+		System.out.println(myList);
 	}
 }

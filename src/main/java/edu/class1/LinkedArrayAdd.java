@@ -39,10 +39,12 @@ public class LinkedArrayAdd {
 			tail = tail.getpNext();
 		}
 	}
-	public void print(){
-		array1.pint();
-		array2.pint();
-		result.pint();
+	
+	@Override
+	public String toString(){
+		StringBuffer sb = new StringBuffer("链表1\t" + array1.toString() 
+				+ "链表2\t" + array2.toString() + "结果\t" + result.toString());
+		return sb.toString();
 	}
 	
 	public LinkedArrayAdd(){
