@@ -36,7 +36,17 @@ public class LinkedArrayTest {
 		System.out.println("在" + m + "和" + n + "之间的链表进行逆序排列");
 		myList.reverse(m, n);
 		System.out.print(myList);
-		
+	}
+	
+	@Test
+	public void testDeleteDulp(){
+		int[] data = {2,3,3,5,7,8,8,8,9,9,10, 10};
+		for(int i=0;i<data.length;i++){
+			myList.addTailNode(data[i]);
+		}
+		System.out.println("删除前\t" + myList);
+		myList.deleteDulp();
+		System.out.println("删除后\t" + myList);
 		
 	}
 }

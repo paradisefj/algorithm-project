@@ -42,6 +42,21 @@ public class LinkedArray<T> {
 	}
 	
 	/**
+	 * 在链表尾部加入一个新的节点
+	 * @param value
+	 */
+	public void addTailNode(T value){
+		Node<T> tmp = this.head;
+		while(tmp.getpNext() != null){
+			tmp = tmp.getpNext();
+		}
+		Node<T> addNode = new Node<T>();
+		addNode.setValue(value);
+		addNode.setpNext(null);
+		tmp.setpNext(addNode);
+	}
+	
+	/**
 	 * 在链表的m到n的位置翻转链表，元素的位置从0开始
 	 * 0<=m<=n<=链表长度 - 1
 	 * @param m
@@ -75,6 +90,23 @@ public class LinkedArray<T> {
 		}
 		
 	}
+	
+	/**
+	 * 给定排序链表，删除链表中的重复节点
+	 */
+	public void deleteDulp(){
+		Node<T> node = this.head.getpNext();
+		while(node != null && node.getpNext() != null){
+			if(node.getValue().equals(node.getpNext().getValue())){
+				Node<T> delNode = node.getpNext();
+				node.setpNext(node.getpNext().getpNext());
+				delNode = null;//释放内存
+			}else{
+				node = node.getpNext();
+			}
+		}
+	}
+	
 	
 	@Override
 	public String toString(){
