@@ -49,4 +49,17 @@ public class LinkedArrayTest {
 		System.out.println("删除后\t" + myList);
 		
 	}
+	
+	@Test
+	public void testPartition(){
+		int[] data = {1,4,3,2,5,2};
+		for(int i=0;i<data.length;i++){
+			myList.addTailNode(data[i]);
+		}
+		System.out.println("分割前\t" + myList);
+		myList.partition(3);
+		System.out.println("分割后\t" + myList);
+		
+		
+	}
 }

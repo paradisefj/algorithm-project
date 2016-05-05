@@ -1,6 +1,6 @@
 package edu.class1;
 
-public class LinkedArray<T> {
+public class LinkedArray<T extends Comparable<T>> {
 	private Node<T> head = null;
 	private int size = 0;
 	
@@ -100,11 +100,40 @@ public class LinkedArray<T> {
 			if(node.getValue().equals(node.getpNext().getValue())){
 				Node<T> delNode = node.getpNext();
 				node.setpNext(node.getpNext().getpNext());
-				delNode = null;//释放内存
+//				delNode = null;//释放内存？有用吗？？不应该这样回收内存
+				//新加的内存回收
+				delNode.setpNext(null);
+				delNode.setValue(null);
 			}else{
 				node = node.getpNext();
 			}
 		}
+	}
+	
+	/**
+	 * 根据value，将链表划分为两部分，
+	 * 小于value，在链表的坐标，大于value在链表的右边
+	 * @param value
+	 */
+	public void partition(T value){
+		Node<T> smallNodes = new Node<T>();
+		Node<T> bigNodes = new Node<T>();
+		Node<T> node = this.getHead().getpNext();
+		Node<T> bigNodesTmp = new Node<T>();
+		bigNodesTmp = bigNodes;
+		this.head = smallNodes;
+		while(node != null){
+			if(node.getValue().compareTo(value) <=0){
+				smallNodes.setpNext(node);
+				smallNodes = smallNodes.getpNext();
+			}else{
+				bigNodes.setpNext(node);
+				bigNodes = bigNodes.getpNext();
+			}
+			node = node.getpNext();
+		}
+		bigNodes.setpNext(null);
+		smallNodes.setpNext(bigNodesTmp.getpNext());
 	}
 	
 	
@@ -124,7 +153,7 @@ public class LinkedArray<T> {
 	
 }
 
-class Node<T>{
+class Node<T extends Comparable<T>> implements Comparable<Node<T>>{
 	public T getValue() {
 		return value;
 	}
@@ -137,7 +166,11 @@ class Node<T>{
 	public void setpNext(Node<T> pNext) {
 		this.pNext = pNext;
 	}
-	T value;
-	Node<T> pNext = null;
+	private T value;
+	private Node<T> pNext = null;
+	
+	public int compareTo(Node<T> node){
+		return this.value.compareTo(node.getValue());
+	}
 	
 }
