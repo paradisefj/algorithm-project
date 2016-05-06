@@ -40,6 +40,7 @@ public class LinkedArrayAdd {
 		}
 	}
 	
+	
 	@Override
 	public String toString(){
 		StringBuffer sb = new StringBuffer("链表1\t" + array1.toString() 
@@ -56,11 +57,11 @@ public class LinkedArrayAdd {
 		Random ra =new Random();
 		int length1 = ra.nextInt(10) + 1;
 		for(int i=0;i<length1;i++){
-			array1.addNodeFirst(ra.nextInt(10));
+			array1.addHeadNode(ra.nextInt(10));
 		}
 		int length2 = ra.nextInt(10) + 1;
 		for(int i=0;i<length2;i++){
-			array2.addNodeFirst(ra.nextInt(10));
+			array2.addHeadNode(ra.nextInt(10));
 		}
 //		array1.pint();
 //		array2.pint();

@@ -4,6 +4,20 @@ public class LinkedArray<T extends Comparable<T>> {
 	private Node<T> head = null;
 	private int size = 0;
 	
+	/**
+	 * 返回链表长度
+	 * @return
+	 */
+	public int size() {
+		Node<T> node = this.head.getpNext();
+		int i = 0;
+		while(node != null){
+			node = node.getpNext();
+			i++;
+		}
+		return i;
+	}
+	
 	public Node<T> getHead() {
 		return head;
 	}
@@ -20,7 +34,7 @@ public class LinkedArray<T extends Comparable<T>> {
 	 * 在链表头部插入一个元素
 	 * @param value
 	 */
-	public void addNodeFirst(T value){
+	public void addHeadNode(T value){
 		Node<T> node = new Node<T>();
 		node.setpNext(this.head.getpNext());
 		node.setValue(value);
@@ -136,6 +150,97 @@ public class LinkedArray<T extends Comparable<T>> {
 		smallNodes.setpNext(bigNodesTmp.getpNext());
 	}
 	
+	/**
+	 * 判断单向链表是否有环
+	 * @return
+	 */
+	public boolean isCircle(){
+		Node<T> first = this.head;
+		Node<T> second = this.head.getpNext();
+		while(first != null && second != null){
+			if(first == second){
+				return true;
+			}
+			first = first.getpNext();
+			second = second.getpNext().getpNext();
+		}
+		return false;
+	}
+	
+	/**
+	 * 获取第index个节点的信息
+	 * @param index
+	 * @return
+	 */
+	public Node<T> get(int index){
+		if(index <0) 
+			return null;
+		Node<T> node = this.head.getpNext();
+		int i = 0;
+		while(node != null){
+			if(i == index){
+				return node;
+			}
+			i++;
+			node = node.getpNext();
+		}
+		return null;
+	}
+	
+	/**
+	 * 判断当前链表和anotherArray是否有公共节点
+	 * 由于两个链表从第一个公共结点到链表的尾结点是完全重合的。所以前面的(m-n)个结点一定没有公共结点。
+	 * 算法:先分别遍历两个链表得到它们的长度 m,n。长链表空转|m-n|次,同步遍历两链表,直到找到相同结点或到链表结束。
+	 * @param anotherArray
+	 * @return
+	 */
+	public Node<T> hasCommonNodes(LinkedArray<T> anotherArray){
+		int m = this.size();
+		int n = anotherArray.size();
+		if(m>n){
+			return hasCommonNodes(this, anotherArray);
+		}else{
+			return hasCommonNodes(anotherArray, this);
+		}
+		
+	}
+	
+	
+	private Node<T> hasCommonNodes(LinkedArray<T> longArray,
+			LinkedArray<T> shortArray) {
+		
+		int m = longArray.size();
+		int n = shortArray.size();
+		
+		Node<T> node = longArray.getHead().getpNext();
+		
+		int i=0;
+		while(i < m - n){
+			node = node.getpNext();
+			i++;
+		}
+		
+		Node<T> shortNode = shortArray.getHead().getpNext();
+		
+		while(node != null && shortNode != null){
+			if(node == shortNode){
+				return node;
+			}
+			node = node.getpNext();
+			shortNode = shortNode.getpNext();
+		}
+		
+		return null;
+	}
+
+
+	public Node<T> getTailNode(){
+		Node<T> node = this.head.getpNext();
+		while(node.getpNext() != null){
+			node = node.getpNext();
+		}
+		return node;
+	}
 	
 	@Override
 	public String toString(){
