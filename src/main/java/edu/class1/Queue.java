@@ -75,6 +75,4 @@ class QueueNode<T> {
 		this.value = value;
 		this.pNext = null;
 	}
-	
-	
 }
