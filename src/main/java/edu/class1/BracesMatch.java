@@ -14,22 +14,22 @@ public class BracesMatch {
 		return a;
 	}
 	public String matching(){
-		int count = 0;
-		int start = 0;
+		int count = 0;//匹配的长度
+		int start = 0;//匹配开始的位置
 		for(int i=0;i<toMatching.length();i++){
 			if(toMatching.charAt(i) == '('){
-				stack.push(i);
-			}else{
-				if(stack.isEmpty()){
+				stack.push(i);//将左括号的位置压栈
+			}else{//右括号
+				if(stack.isEmpty()){//为空，证明该右括号没有匹配
 					start = i;
+				}else{//栈不空，说明能够匹配
+					stack.pop();
+					if(stack.isEmpty()){//出栈后，栈为空
+						count = max(i - start + 1, count);
+					}else{
+						count = max(count, i - stack.top());
+					}
 				}
-				stack.pop();
-				if(stack.isEmpty()){
-					count = max(count, i - start);
-				}else{
-					count = max(count, i - stack.top());
-				}
-				
 			}
 		}
 		return this.toMatching.substring(start, start + count );
