@@ -7,12 +7,6 @@ public class BracesMatch {
 		this.toMatching = toMatching;
 		this.stack = new Stack<Integer>();
 	}
-	private int max(int a, int b){
-		if(a<b){
-			return b;
-		}
-		return a;
-	}
 	public String matching(){
 		int count = 0;//匹配的长度
 		int start = 0;//匹配开始的位置
@@ -23,11 +17,16 @@ public class BracesMatch {
 				if(stack.isEmpty()){//为空，证明该右括号没有匹配
 					start = i;
 				}else{//栈不空，说明能够匹配
-					stack.pop();
-					if(stack.isEmpty()){//出栈后，栈为空
-						count = max(i - start + 1, count);
+					int top = stack.pop();
+					if(stack.isEmpty()){//出栈后，栈为空，是能够继续匹配
+						if(i-start + 1 > count){
+							count = i-start + 1;
+						}
 					}else{
-						count = max(count, i - stack.top());
+						if(i-stack.top() + 1>= count){
+							count = i- top + 1 ;
+							start = top;
+						}
 					}
 				}
 			}

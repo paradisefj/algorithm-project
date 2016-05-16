@@ -30,6 +30,7 @@
 对一个有向无环图(Directed Acyclic Graph, DAG) G 进行拓扑排序,是将G中所有顶点排成线性序列, 使得图中任意一对顶点u和v, 若边(u,v)∈E(G), 则u在线性序列中出现在v之前。
 
 3. 给定如下图所示的无向连通图,假定图中所有边的权值都为1,显然,从源点A到终点T的最短路径有多条,求不同的最短路径的数目。
+
 ![最短路径条数](https://github.com/paradisefj/algorithm-project/blob/master/screenshots/pic01.png)
 
 ###栈
